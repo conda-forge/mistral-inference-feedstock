@@ -11,7 +11,7 @@ source:
   sha256: c3614d6eaf9b2c059cd6cb6e1462f65ac8f0bab8540fa241670d020fc70ad469
 
 build:
-  number: 1
+  number: 2
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   noarch: python
 
@@ -28,6 +28,7 @@ requirements:
     - fire
     - mistral-common
     - pillow
+    - pytorch
     - safetensors
     - simple-parsing
     - xformers
