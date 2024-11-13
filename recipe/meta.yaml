@@ -1,5 +1,5 @@
 {% set name = "mistral-inference" %}
-{% set version = "1.4.0" %}
+{% set version = "1.5.0" %}
 {% set python_min = python_min|default("3.8") %}
 
 package:
@@ -8,10 +8,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/mistral_inference-{{ version }}.tar.gz
-  sha256: c3614d6eaf9b2c059cd6cb6e1462f65ac8f0bab8540fa241670d020fc70ad469
+  sha256: 0fdc290d5b960ebb43a5cbfdb70d74cdd901c8927c0f0ffd24cf6072f127638c
 
 build:
-  number: 2
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   noarch: python
 
