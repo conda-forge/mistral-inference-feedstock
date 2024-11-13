@@ -1,5 +1,6 @@
 {% set name = "mistral-inference" %}
 {% set version = "1.4.0" %}
+{% set python_min = python_min|default("3.8") %}
 
 package:
   name: {{ name|lower }}
@@ -10,23 +11,20 @@ source:
   sha256: c3614d6eaf9b2c059cd6cb6e1462f65ac8f0bab8540fa241670d020fc70ad469
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  skip: true  # [osx or win]
+  noarch: python
 
 requirements:
-  build:
-    - {{ compiler("cxx") }}
-    - {{ stdlib("c") }}
   host:
     - pip
-    - python
+    - python {{ python_min }}
     - pytorch
     - setuptools
     - setuptools_scm
     - poetry
   run:
-    - python
+    - python >={{ python_min }}
     - fire
     - mistral-common
     - pillow
@@ -41,6 +39,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/mistralai/mistral-inference
