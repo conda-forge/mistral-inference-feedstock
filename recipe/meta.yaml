@@ -1,6 +1,5 @@
 {% set name = "mistral-inference" %}
 {% set version = "1.5.0" %}
-{% set python_min = python_min|default("3.8") %}
 
 package:
   name: {{ name|lower }}
@@ -11,8 +10,8 @@ source:
   sha256: 0fdc290d5b960ebb43a5cbfdb70d74cdd901c8927c0f0ffd24cf6072f127638c
 
 build:
-  number: 0
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 1
+  script: {{ PYTHON }} -m pip install . -vv
   noarch: python
 
 requirements:
