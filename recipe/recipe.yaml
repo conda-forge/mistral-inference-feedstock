@@ -25,7 +25,8 @@ requirements:
     - python ${{ python_min }}.*
   run:
     - fire >=0.6.0
-    - mistral-common >=1.5.4
+    # mistral-inference 1.6.0 imports ImageChunk from the old messages module.
+    - mistral-common >=1.5.4,<1.10.0
     - pillow >=10.3.0
     - python >=${{ python_min }}
     - pytorch
