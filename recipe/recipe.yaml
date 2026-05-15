@@ -1,0 +1,62 @@
+schema_version: 1
+
+context:
+  name: mistral-inference
+  version: "1.6.0"
+  python_min: "3.10"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/mistral_inference-${{ version }}.tar.gz
+  sha256: 838ef36cdb8f0fe970df1f9e5d270d8c174081eaa9acda77534b187e27b0d5b3
+
+build:
+  number: 1
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  host:
+    - pip
+    - poetry-core >=1.0.0
+    - python ${{ python_min }}.*
+  run:
+    - fire >=0.6.0
+    # mistral-inference 1.6.0 imports ImageChunk from the old messages module.
+    - mistral-common >=1.5.4,<1.10.0
+    - pillow >=10.3.0
+    - python >=${{ python_min }}
+    - pytorch
+    - safetensors >=0.4.0
+    - simple-parsing >=0.1.5
+    - xformers >=0.0.24
+
+tests:
+  - script:
+      - pip check
+      - python -c "import mistral_inference"
+      - mistral-chat --help
+      - mistral-demo --help
+      - python run_test.py
+    files:
+      recipe:
+        - run_test.py
+    requirements:
+      run:
+        - pip
+        - python ${{ python_min }}.*
+        - pytorch * cpu*
+
+about:
+  homepage: https://github.com/mistralai/mistral-inference
+  repository: https://github.com/mistralai/mistral-inference
+  summary: Official inference library for Mistral models
+  license: Apache-2.0
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - jeongseok-meta
